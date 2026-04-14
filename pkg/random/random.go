@@ -7,7 +7,14 @@ import (
 
 var Seed = time.Now().UnixNano()
 
-func RandomInt(min, max int) int {
+func RandomInt(number1, number2 int) int {
+	minVal := number1
+	maxVal := number2
+
+	if minVal > maxVal {
+		minVal, maxVal = maxVal, minVal
+	}
+
 	r := rand.New(rand.NewSource(Seed))
-	return r.Intn(max-min+1) + min
+	return r.Intn(maxVal-minVal+1) + minVal
 }

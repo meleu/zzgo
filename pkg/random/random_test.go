@@ -16,3 +16,36 @@ func TestRandomInt(t *testing.T) {
 		t.Errorf("got %d, want %d", got, want)
 	}
 }
+
+func TestRandomIntRespectsInterval(t *testing.T) {
+	minVal := 5
+	maxVal := 10
+
+	for range 50 {
+		got := random.RandomInt(minVal, maxVal)
+		if got < minVal || got > maxVal {
+			t.Errorf("got %d, want a value %d <= n <= %d", got, minVal, maxVal)
+		}
+	}
+}
+
+func TestRandomIntWithEqualBoundsReturnsTheGivenValue(t *testing.T) {
+	value := 50
+	got := random.RandomInt(value, value)
+
+	if got != value {
+		t.Errorf("got %d, want %d", got, value)
+	}
+}
+
+func TestRandomIntSwapsValuesWhenFirstArgIsGreater(t *testing.T) {
+	minVal := 5
+	maxVal := 10
+
+	for range 50 {
+		got := random.RandomInt(maxVal, minVal)
+		if got < minVal || got > maxVal {
+			t.Errorf("got %d, expected %d <= n <= %d", got, minVal, maxVal)
+		}
+	}
+}
