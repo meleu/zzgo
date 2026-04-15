@@ -7,7 +7,8 @@ import (
 )
 
 func TestRandomInt(t *testing.T) {
-	random.Seed = 1
+	t.Parallel()
+	random.SetSeed(1)
 	got := random.RandomInt(0, 32767)
 
 	// I know it's 545 because I ran it with Seed = 1, and checked the result.
@@ -18,6 +19,7 @@ func TestRandomInt(t *testing.T) {
 }
 
 func TestRandomIntRespectsInterval(t *testing.T) {
+	t.Parallel()
 	minVal := 5
 	maxVal := 10
 
@@ -30,6 +32,7 @@ func TestRandomIntRespectsInterval(t *testing.T) {
 }
 
 func TestRandomIntWithEqualBoundsReturnsTheGivenValue(t *testing.T) {
+	t.Parallel()
 	value := 50
 	got := random.RandomInt(value, value)
 
@@ -39,6 +42,7 @@ func TestRandomIntWithEqualBoundsReturnsTheGivenValue(t *testing.T) {
 }
 
 func TestRandomIntSwapsValuesWhenFirstArgIsGreater(t *testing.T) {
+	t.Parallel()
 	minVal := 5
 	maxVal := 10
 
@@ -47,5 +51,16 @@ func TestRandomIntSwapsValuesWhenFirstArgIsGreater(t *testing.T) {
 		if got < minVal || got > maxVal {
 			t.Errorf("got %d, expected %d <= n <= %d", got, minVal, maxVal)
 		}
+	}
+}
+
+func TestRandomIntGeneratesDifferentValuesAcrossCalls(t *testing.T) {
+	t.Parallel()
+	random.SetSeed(1)
+	first := random.RandomInt(0, 32767)
+	second := random.RandomInt(0, 32767)
+
+	if first == second {
+		t.Errorf("consecutive calls returned the same value %d", first)
 	}
 }

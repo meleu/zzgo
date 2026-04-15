@@ -5,7 +5,15 @@ import (
 	"time"
 )
 
-var Seed = time.Now().UnixNano()
+var rng *rand.Rand
+
+func init() {
+	rng = rand.New(rand.NewSource(time.Now().UnixNano()))
+}
+
+func SetSeed(seed int64) {
+	rng = rand.New(rand.NewSource(seed))
+}
 
 func RandomInt(number1, number2 int) int {
 	minVal := number1
@@ -15,6 +23,5 @@ func RandomInt(number1, number2 int) int {
 		minVal, maxVal = maxVal, minVal
 	}
 
-	r := rand.New(rand.NewSource(Seed))
-	return r.Intn(maxVal-minVal+1) + minVal
+	return rng.Intn(maxVal-minVal+1) + minVal
 }
