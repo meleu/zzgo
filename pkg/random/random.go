@@ -5,17 +5,23 @@ import (
 	"time"
 )
 
-var rng *rand.Rand
-
-func init() {
-	rng = rand.New(rand.NewSource(time.Now().UnixNano()))
+type Generator struct {
+	rng *rand.Rand
 }
 
-func SetSeed(seed int64) {
-	rng = rand.New(rand.NewSource(seed))
+func New() *Generator {
+	return &Generator{
+		rng: rand.New(rand.NewSource(time.Now().UnixNano())),
+	}
 }
 
-func RandomInt(number1, number2 int) int {
+func NewWithCustomSeed(seed int64) *Generator {
+	return &Generator{
+		rng: rand.New(rand.NewSource(seed)),
+	}
+}
+
+func (g *Generator) Int(number1, number2 int) int {
 	minVal := number1
 	maxVal := number2
 
@@ -23,5 +29,5 @@ func RandomInt(number1, number2 int) int {
 		minVal, maxVal = maxVal, minVal
 	}
 
-	return rng.Intn(maxVal-minVal+1) + minVal
+	return g.rng.Intn(maxVal-minVal+1) + minVal
 }
