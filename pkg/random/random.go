@@ -22,16 +22,21 @@ import (
 	"time"
 )
 
+// Generator is a seedable source of pseudo-random numbers. It is not
+// safe for concurrent use.
 type Generator struct {
 	rng *rand.Rand
 }
 
+// New returns a Generator seeded with the current time.
 func New() *Generator {
 	return &Generator{
 		rng: rand.New(rand.NewSource(time.Now().UnixNano())),
 	}
 }
 
+// NewWithCustomSeed returns a Generator seeded with the given value,
+// producing a reproducible sequence of numbers.
 func NewWithCustomSeed(seed int64) *Generator {
 	return &Generator{
 		rng: rand.New(rand.NewSource(seed)),

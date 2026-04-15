@@ -1,18 +1,17 @@
-# zzgo - miniapps for the terminal - inspired by <https://funcoeszz.net>
+# zzgo - miniapps for the terminal
 
-The [funcoeszz](https://github.com/funcoeszz/funcoeszz) is a cool shell scripting project,
-started by @aureliojargas more than two decades ago. It's a collection of more
-than a hundred of functions with miniapps with utilities to be used directly
-from the terminal.
+An attempt to rewrite, in Go, some of the functionalities provided by
+[funcoeszz](https://funcoeszz.net).
 
-This project here is an attempt to rewrite some of those functionalities in
-Golang, where the functions are invoked as subcommands (I'm going to use
-[Cobra](https://cobra.dev) to implement the subcommands.
+The [funcoeszz](https://github.com/funcoeszz/funcoeszz) is a cool project with a collection
+of shell scripts with dozens miniapps to be used directly from the terminal.
 
-The original funcoeszz project is written in pt-BR, while here I'm using English.
+The idea here is to rewrite some of those functionalities in Go and allow them
+to be invoked as subcommands (`zz command` rather than `zzfunction`).
+Also, I'm using English here, while the original project is in Brazilian Portuguese.
 
 My motivation:
 
 - practice Golang
-- practice TDD
-- learn more about Cobra CLI framework.
+- practice TDD, in general, and Go testing, in particular
+- learn more about Cobra CLI framework
