@@ -4,6 +4,69 @@ My notes about new things I'm learning while build this project.
 
 Although public, it's very personal (which means "I'm not taking notes of things I already know by heart").
 
+## `zz random`
+
+### Go questions
+
+I need to research about this:
+
+> Error wrapping with `%w`: `fmt.Errorf("...: %w", err)` preserves the original error for `errors.Is`/`errors.As`. It's acceptable for user facing messages, but loses introspection.
+
+### Cobra basics
+
+- A command is a `&cobra.Command{...}` struct literal.
+- Relevant fields:
+  - `Use: "random [number1 [number2]]` - the usage line. We must specify the (non-flag) args explicitly (it doesn't handle it automatically, like Bashly does)
+  - `Short` / `Long`: help text
+  - `Args`: a **validator function** that runs before `Run`/`RunE`. Cobra aborts if validation fails. Examples:
+    - `cobra.NoArgs`
+    - `.ExactArgs(n)`
+    - `.MinimumNArgs(n)` / `.MaximumNArgs(n)`
+    - `.RangeArgs(min, max)`
+    - `.MatchAll(v1, v2, ...)` to compose multiple validations
+  - `Run` vs. `RunE`:
+    - `RunE` returns an error; Cobra prints it and exit with non-zero (prefer `RunE`).
+    - `Run` the developer is responsible to explicitly handle error cases/messages.
+  - `SilenceUsage: true` - suppress usage message on `RunE` error.
+
+Cobra testing trick: use `fmt.Fprintln(cmd.OutOrStdout(), "something")` to print something to stdout.
+The reason for this is to allow `rootCmd.SetOut(io.Discard)` in the tests.
+
+### Testing Cobra commands
+
+Run the tests with `go test ./cmd/...`
+
+Test files lives in the same package so it can reference `rootCmd`, then drive the tests like this:
+
+```go
+func TestZZRandom_ArgsValidation(t *testing.T) {
+ argTests := []struct {
+  name    string
+  args    []string
+  wantErr bool
+ }{
+  { "no args ok", []string{"random"}, false, },
+  { "one arg ok", []string{"random", "10"}, false, },
+  { "two args ok", []string{"random", "10", "1"}, false, },
+  { "three args fails", []string{"random", "1", "5", "10"}, true, },
+  // ...
+ }
+
+ for _, tt := range argTests {
+  t.Run(tt.name, func(t *testing.T) {
+   rootCmd.SetArgs(tt.args)
+   rootCmd.SetOut(io.Discard) // keep test output clean
+   rootCmd.SetErr(io.Discard) // idem
+   gotErr := rootCmd.Execute()
+
+   if (gotErr != nil) != tt.wantErr {
+    t.Errorf( "test: %q, args: %v, wantErr: %v, gotErr: %v", tt.name, tt.args, tt.wantErr, gotErr)
+   }
+  })
+ }
+}
+```
+
 ## `pkg/random`
 
 New things I learned while building `pkg/random`.

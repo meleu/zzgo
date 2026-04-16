@@ -2,10 +2,9 @@
 
 ## Work in Progress
 
-- zzaleatorio -> `zz random`
-  - logic is done, missing subcommand
-
 ## Done
+
+- zzaleatorio -> `zz random`
 
 ## To be done
 
