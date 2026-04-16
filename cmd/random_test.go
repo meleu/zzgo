@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestZZRandom_Arity(t *testing.T) {
+func TestZZRandom_ArgsValidation(t *testing.T) {
 	argTests := []struct {
 		name    string
 		args    []string
@@ -29,6 +29,21 @@ func TestZZRandom_Arity(t *testing.T) {
 		{
 			"three args fails",
 			[]string{"random", "1", "5", "10"},
+			true,
+		},
+		{
+			"invalid arg fails",
+			[]string{"random", "abc"},
+			true,
+		},
+		{
+			"invalid second arg fails",
+			[]string{"random", "1", "abc"},
+			true,
+		},
+		{
+			"float arg fails",
+			[]string{"random", "5.5"},
 			true,
 		},
 	}
