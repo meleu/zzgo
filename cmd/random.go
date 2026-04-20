@@ -20,14 +20,14 @@ With no arguments, a number between 0 and 32767 (similar to Bash's $RANDOM).
 With one argument, a number between 0 and given number.
 With two arguments, a number between the given numbers.`,
 	SilenceUsage: true,
-	RunE:         run,
+	RunE:         runRandom,
 }
 
 func init() {
 	rootCmd.AddCommand(randomCmd)
 }
 
-func run(cmd *cobra.Command, args []string) error {
+func runRandom(cmd *cobra.Command, args []string) error {
 	n1, n2, err := boundsFromArgs(args)
 	if err != nil {
 		return err

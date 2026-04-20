@@ -5,14 +5,18 @@
 ## Done
 
 - zzaleatorio -> `zz random`
+- zzcaracoroa -> `zz flipcoin`
 
 ## To be done
 
-**NOTE**: this is an extensive list of what's present in funcoeszz.
-I'm **NOT** going to implement all of them.
+**NOTE**: [this is an extensive list](https://funcoeszz.net/list.html) of
+what's present in funcoeszz. I'm **NOT** going to implement all of them.
 
-- zzcaracoroa
+Next one:
+
 - zzsenha
+
+Still missing:
 
 - zzajuda
 - zzalfabeto
