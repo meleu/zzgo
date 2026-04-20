@@ -4,6 +4,13 @@ My notes about new things I'm learning while build this project.
 
 Although public, it's very personal (which means "I'm not taking notes of things I already know by heart").
 
+## GoReleaser
+
+Using [GoReleaser](https://goreleaser.com/) is an awesome way to release
+binaries using [GitHub Actions](./.github/workflows/release.yml)
+
+See also [the `.goreleaser.yaml`](./.goreleaser.yaml).
+
 ## `zz random`
 
 ### Go questions
