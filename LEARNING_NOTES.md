@@ -37,7 +37,7 @@ I need to research about this:
   - `SilenceUsage: true` - suppress usage message on `RunE` error.
 
 Cobra testing trick: use `fmt.Fprintln(cmd.OutOrStdout(), "something")` to print something to stdout.
-The reason for this is to allow `rootCmd.SetOut(io.Discard)` in the tests.
+The reason for this is to allow `rootCmd.SetOut(io.Discard)` in the tests and prevent noise in test logs.
 
 ### Testing Cobra commands
 
