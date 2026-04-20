@@ -12,39 +12,39 @@ func TestZZRandom_ArgsValidation(t *testing.T) {
 		wantErr bool
 	}{
 		{
-			"no args ok",
-			[]string{"random"},
-			false,
+			name:    "no args ok",
+			args:    []string{"random"},
+			wantErr: false,
 		},
 		{
-			"one arg ok",
-			[]string{"random", "10"},
-			false,
+			name:    "one arg ok",
+			args:    []string{"random", "10"},
+			wantErr: false,
 		},
 		{
-			"two args ok",
-			[]string{"random", "10", "1"},
-			false,
+			name:    "two args ok",
+			args:    []string{"random", "10", "1"},
+			wantErr: false,
 		},
 		{
-			"three args fails",
-			[]string{"random", "1", "5", "10"},
-			true,
+			name:    "three args fails",
+			args:    []string{"random", "1", "5", "10"},
+			wantErr: true,
 		},
 		{
-			"invalid arg fails",
-			[]string{"random", "abc"},
-			true,
+			name:    "invalid arg fails",
+			args:    []string{"random", "abc"},
+			wantErr: true,
 		},
 		{
-			"invalid second arg fails",
-			[]string{"random", "1", "abc"},
-			true,
+			name:    "invalid second arg fails",
+			args:    []string{"random", "1", "abc"},
+			wantErr: true,
 		},
 		{
-			"float arg fails",
-			[]string{"random", "5.5"},
-			true,
+			name:    "float arg fails",
+			args:    []string{"random", "5.5"},
+			wantErr: true,
 		},
 	}
 
