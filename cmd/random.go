@@ -13,8 +13,8 @@ var randomCmd = &cobra.Command{
 	Use:     "random [number1 [number2]]",
 	Args:    cobra.MaximumNArgs(2),
 	Aliases: []string{"rand"},
-	Short:   "zz random - generates a random integer",
-	Long: `zz random - generates a random integer
+	Short:   "generates a random integer",
+	Long: `generates a random integer
 
 With no arguments, a number between 0 and 32767 (similar to Bash's $RANDOM).
 With one argument, a number between 0 and given number.

@@ -10,8 +10,8 @@ import (
 // flipcoinCmd represents the flipcoin command
 var flipcoinCmd = &cobra.Command{
 	Use:   "flipcoin",
-	Short: "zz flipcoin - shows 'heads' or 'tails' randomly",
-	Long:  "zz flipcoin - shows 'heads' or 'tails' randomly",
+	Short: "shows 'heads' or 'tails' randomly",
+	Long:  "shows 'heads' or 'tails' randomly",
 	Args:  cobra.NoArgs,
 	RunE:  runFlipcoin,
 }
