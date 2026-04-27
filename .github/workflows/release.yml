@@ -24,9 +24,9 @@ jobs:
           go-version-file: "go.mod"
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.ZZ_TOKEN }}
         with:
           distribution: goreleaser
           version: "~> v2"
           args: release --clean
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

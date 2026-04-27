@@ -9,11 +9,11 @@ builds:
       - CGO_ENABLED=0
     goos:
       - linux
-      # - darwin
+      - darwin
       # - windows
     goarch:
       - amd64
-      # - arm64
+      - arm64
     ldflags:
       - -s -w
       - -X github.com/meleu/zzgo/cmd.version={{.Version}}
@@ -37,3 +37,12 @@ changelog:
       - "^docs:"
       - "^test:"
       - "^chore:"
+
+homebrew_casks:
+  - name: zz
+    repository:
+      owner: meleu
+      name: homebrew-tap
+    description: miniapps for the terminal
+    homepage: https://github.com/meleu/zzgo
+    license: MIT
