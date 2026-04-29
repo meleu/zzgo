@@ -11,6 +11,26 @@ binaries using [GitHub Actions](./.github/workflows/release.yml)
 
 See also [the `.goreleaser.yaml`](./.goreleaser.yaml).
 
+### Make it installable via homebrew
+
+[Related commit.](https://github.com/meleu/zzgo/commit/c8ff2bda7e1748759ef7728d0bea5e5eb8f83211)
+
+1. Create a repo named `homebrew-tap` ([here's mine](https://github.com/meleu/homebrew-tap))
+2. Create a github personal access token with finegrained permissions
+    - scoped to this (`zzgo`) repository and `homebrew-tap`.
+    - permissions:
+        - code - read & write
+        - metadata - read
+        - workflows - read & write
+3. Use the created token in:
+    - GoReleaser github action
+    - `.goreleaser.yml` homebrew_casks configuration
+
+Useful docs:
+
+- <https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap>
+- <https://goreleaser.com/customization/publish/homebrew_casks/>
+
 ## `zz random`
 
 ### Go questions

@@ -10,7 +10,7 @@ Teach the project's techstack via its commit history. Audience: experienced prog
 
 ## Input
 
-Starting commit hash (required). Range: `<hash>..HEAD`. If missing, ask — do not guess.
+Starting commit hash (required). Range: `<hash>..HEAD`. If missing, ask — do not guess. If given hash is the commit at HEAD, analyze its changes.
 
 ## Workflow
 
