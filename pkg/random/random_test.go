@@ -68,3 +68,28 @@ func TestGeneratorInt(t *testing.T) {
 		}
 	})
 }
+
+func TestGeneratorPassword(t *testing.T) {
+	t.Run("generates a password with the specified length", func(t *testing.T) {
+		t.Parallel()
+		r := random.New()
+		want := 8
+		password := r.Password(want)
+		got := len(password)
+
+		if got != want {
+			t.Errorf("expected a password with %d chars, got %d: %s", want, got, password)
+		}
+	})
+
+	t.Run("generates different values accross calls", func(t *testing.T) {
+		t.Parallel()
+		g := random.New()
+		first := g.Password(10)
+		second := g.Password(10)
+
+		if first == second {
+			t.Errorf("consecutive calls returned the same password %q", first)
+		}
+	})
+}

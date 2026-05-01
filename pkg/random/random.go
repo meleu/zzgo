@@ -1,6 +1,6 @@
 // Package random provides a random number generator.
 //
-// Create a generator (seeded with the current time):
+// Create a "randomness generator" (seeded with the current time):
 //
 //	g := random.New()
 //	n := g.Int(1, 10) // random int in [1, 10]
@@ -19,6 +19,7 @@ package random
 
 import (
 	"math/rand"
+	"strings"
 	"time"
 )
 
@@ -54,4 +55,18 @@ func (g *Generator) Int(number1, number2 int) int {
 	}
 
 	return g.rng.Intn(maxVal-minVal+1) + minVal
+}
+
+const alphabetChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+func (g *Generator) Password(charsAmount int) string {
+	maxI := len(alphabetChars)
+
+	var password strings.Builder
+	for range charsAmount {
+		i := g.Int(0, maxI)
+		password.WriteByte(alphabetChars[i])
+	}
+
+	return password.String()
 }
