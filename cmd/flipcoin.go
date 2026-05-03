@@ -11,7 +11,6 @@ import (
 var flipcoinCmd = &cobra.Command{
 	Use:   "flipcoin",
 	Short: "shows 'heads' or 'tails' randomly",
-	Long:  "shows 'heads' or 'tails' randomly",
 	Args:  cobra.NoArgs,
 	RunE:  runFlipcoin,
 }
