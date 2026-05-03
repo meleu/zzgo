@@ -60,7 +60,7 @@ func (g *Generator) Int(number1, number2 int) int {
 const alphabetChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
 func (g *Generator) Password(charsAmount int) string {
-	maxI := len(alphabetChars)
+	maxI := len(alphabetChars) - 1
 
 	var password strings.Builder
 	for range charsAmount {
