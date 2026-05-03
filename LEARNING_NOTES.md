@@ -56,8 +56,17 @@ I need to research about this:
     - `Run` the developer is responsible to explicitly handle error cases/messages.
   - `SilenceUsage: true` - suppress usage message on `RunE` error.
 
-Cobra testing trick: use `fmt.Fprintln(cmd.OutOrStdout(), "something")` to print something to stdout.
-The reason for this is to allow `rootCmd.SetOut(io.Discard)` in the tests and prevent noise in test logs.
+#### Printing & Testing
+
+Instead of using `fmt.Print*` functions, it's better to use
+`fmt.Fprintln(cmd.OutOrStdout(), "something")` to print something to stdout.
+The reason is to allow `rootCmd.SetOut(io.Discard)` in the tests and prevent
+noise in test logs.
+
+Same thing for stderr:
+
+- `fmt.Fprintln(cmd.ErrOrStderr(), "something")` in production code
+- `rootCmd.SetErr(io.Discard)` in tests
 
 ### Testing Cobra commands
 
@@ -93,6 +102,20 @@ func TestZZRandom_ArgsValidation(t *testing.T) {
  }
 }
 ```
+
+#### Cobra & Race Conditions
+
+If we run `go test -race ./cmd/...` we'll see a race condition problem caused
+by [cmd/random_test.go](https://github.com/meleu/zzgo/blob/8e6e6711ca9653eab06d163bed25c6ea7c0a78f1/cmd/random_test.go).
+
+If we use `t.Parallel()` in [cmd/random_test.go](https://github.com/meleu/zzgo/blob/8e6e6711ca9653eab06d163bed25c6ea7c0a78f1/cmd/random_test.go),
+we'll see a race condition problem. This happens because all subtests share the
+package-level `randomCmd`, and Cobra mutates command state during `Execute()`.
+So concurrent executions stomp on each other.
+
+A possible solution would be to use a constructor and give each test its own
+command tree. [This article](https://gianarb.it/blog/golang-mockmania-cli-command-with-cobra)
+has some nice instructions about how to use a constructor for subcommands.
 
 ## `pkg/random`
 
