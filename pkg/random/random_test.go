@@ -1,6 +1,7 @@
 package random_test
 
 import (
+	"regexp"
 	"testing"
 
 	"github.com/meleu/zzgo/pkg/random"
@@ -90,6 +91,18 @@ func TestGeneratorPassword(t *testing.T) {
 
 		if first == second {
 			t.Errorf("consecutive calls returned the same password %q", first)
+		}
+	})
+}
+
+func TestGeneratorNumericPassword(t *testing.T) {
+	t.Run("generates a password with digits only", func(t *testing.T) {
+		t.Parallel()
+		g := random.New()
+		password := g.NumericPassword(10)
+		reDigits := regexp.MustCompile(`^[0-9]+$`)
+		if !reDigits.MatchString(password) {
+			t.Errorf("expected password to have only digits, got %q", password)
 		}
 	})
 }

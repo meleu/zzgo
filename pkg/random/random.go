@@ -57,16 +57,30 @@ func (g *Generator) Int(number1, number2 int) int {
 	return g.rng.Intn(maxVal-minVal+1) + minVal
 }
 
-const alphabetChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+const (
+	alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+	digits   = "0123456789"
+	// symbols  = "-/:;()$&@.,?!*"
+)
 
-func (g *Generator) Password(charsAmount int) string {
-	maxI := len(alphabetChars) - 1
+// Password returns a random string of the given length, composed of ASCII
+// letters and digits. It is intended for generating simple passwords.
+func (g *Generator) Password(length int) string {
+	return g.generatePassword(alphabet+digits, length)
+}
 
-	var password strings.Builder
-	for range charsAmount {
+func (g *Generator) NumericPassword(length int) string {
+	return g.generatePassword(digits, length)
+}
+
+func (g *Generator) generatePassword(charList string, length int) string {
+	maxI := len(charList) - 1
+
+	var newPassword strings.Builder
+	for range length {
 		i := g.Int(0, maxI)
-		password.WriteByte(alphabetChars[i])
+		newPassword.WriteByte(charList[i])
 	}
 
-	return password.String()
+	return newPassword.String()
 }
